@@ -12,7 +12,7 @@ const displayPages = async() => {
         pageLink.innerHTML = page.title
         pageLink.href = page.url
 
-        pageLink.onclick = (ev) => {
+        pageLink.onclick = async (ev) => {
             ev.preventDefault()
             chrome.tabs.create({url: ev.target.href, active: false})
         }
@@ -46,5 +46,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         await PageService.clearPages()
         await displayPages()
     }
+
+    await acho.quiet()
 
 })

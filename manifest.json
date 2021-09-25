@@ -1,10 +1,10 @@
 {
-    "manifest_version": 2,
+    "manifest_version": 3,
     "name": "Acho, where are we?",
     "version": "0.1.0",
     "description": "Ask Acho where you are and he'll bark the page title at you.",
 
-    "browser_action": {
+    "action": {
         "default_popup": "popup.html",
         "default_icon": {
             "16": "images/icon16.png",
@@ -12,13 +12,9 @@
             "32": "images/icon32.png"
         }
     },
-    "permissions": [
-        "tabs",
-        "storage"
-    ],
 
     "commands": {
-        "_execute_browser_action": {
+        "_execute_action": {
             "suggested_key": {
                 "default": "Alt+Shift+1"
             }
@@ -40,12 +36,7 @@
     },
 
     "background": {
-        "scripts": [ 
-                    "background.js", 
-                    "acho.js", 
-                    "page.service.js"
-                ],
-        "persistent": false
+        "service_worker": "service-worker.js"
     },
 
     "content_scripts": [
@@ -55,7 +46,17 @@
             "css": ["content.css"]
         }
     ],
+
     "web_accessible_resources": [
-        "images/icon32.png"
+        {
+            "matches": ["<all_urls>"],
+            "resources": ["images/icon32.png"]
+        }
+    ],
+
+    "permissions": [
+        "tabs",
+        "storage"
     ]
+
 }

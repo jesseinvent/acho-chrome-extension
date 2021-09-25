@@ -1,3 +1,16 @@
+
+importScripts('acho.js', 'page.service.js')
+
+
+chrome.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
+    await new Acho().growl()
+})
+
+
+chrome.tabs.onCreated.addListener(async tab => {
+   await new Acho().growl()
+})
+
 /**
  * Gets the current active tab URL and opens a new tab with the same URL
  */
@@ -41,4 +54,6 @@ const barkTitle = async () => {
     });
 
     await PageService.savePage(tab.title, tab.url)
+
+    await acho.quiet()
 }
